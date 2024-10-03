@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { directorRepository, movieRepository } from "./db/data-source";
+import { movieRepository } from "./db/data-source";
 
 const app = express();
 
@@ -11,9 +11,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/movies", async (req, res) => {
-  const movies = await movieRepository.find({
-    relations: ["director"],
-  });
+  const movies = await movieRepository.find();
 
   res.json({
     data: movies,
