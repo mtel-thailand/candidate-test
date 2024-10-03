@@ -1,5 +1,4 @@
 import express from 'express';
-import * as data from './data/seed.json';
 import cors from 'cors';
 import { movieRepository } from './db/data-source';
 
@@ -12,7 +11,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/movies', async (req, res) => {
-  // const { movies } = data;
   const movies = await movieRepository.find();
   res.json({
     data: movies,

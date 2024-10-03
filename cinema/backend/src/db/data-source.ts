@@ -1,14 +1,23 @@
 import { DataSource } from "typeorm";
 import { Movie } from "../entities";
+import { Director } from "../entities/Director";
 
-export const AppDataSource = new DataSource({
-  type: "sqlite",
-  database: "./tmp/sqlite.db",
-  synchronize: true,
-  logging: true,
-  entities: [Movie],
-  subscribers: [],
-  migrations: [],
-});
+export const initDB = (options?: { env: string }) => {
+  const env = options?.env || "dev";
 
-export const movieRepository = AppDataSource.getRepository(Movie)
+  const AppDataSource = new DataSource({
+    type: "sqlite",
+    database: `./tmp/sqlite.${env}.db`,
+    synchronize: true,
+    entities: [Movie, Director],
+    subscribers: [],
+    migrations: ["src/db/seeds/*.ts"],
+  });
+
+  return AppDataSource;
+};
+
+export const AppDataSource = initDB();
+
+export const movieRepository = AppDataSource.getRepository('Movie');
+export const directorRepository = AppDataSource.getRepository('Director');
