@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Director } from "./Director";
 
 @Entity()
 export class Movie {
@@ -18,7 +19,7 @@ export class Movie {
   genres: string;
 
   @Column()
-  director: string;
+  director_id: string;
 
   @Column()
   actors: string;

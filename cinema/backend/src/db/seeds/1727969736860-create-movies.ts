@@ -12,7 +12,7 @@ export class Seed1727969736860 implements MigrationInterface {
         year: 1994,
         runtime: 142,
         genres: "Drama",
-        director: "Frank Darabont",
+        director_id: "1",
         actors: "Tim Robbins, Morgan Freeman, Bob Gunton, William Sadler",
       },
       {
@@ -20,7 +20,7 @@ export class Seed1727969736860 implements MigrationInterface {
         year: 1972,
         runtime: 175,
         genres: "Crime, Drama",
-        director: "Francis Ford Coppola",
+        director_id: "2",
         actors: "Marlon Brando, Al Pacino, James Caan, Richard S. Castellano",
       },
       {
@@ -28,7 +28,7 @@ export class Seed1727969736860 implements MigrationInterface {
         year: 2008,
         runtime: 152,
         genres: "Action, Crime, Drama, Thriller",
-        director: "Christopher Nolan",
+        director_id: "3",
         actors: "Christian Bale, Heath Ledger, Aaron Eckhart, Michael Caine",
       },
     ];
