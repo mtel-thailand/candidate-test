@@ -1,43 +1,61 @@
 import request from "supertest";
 import app from "../src/app";
-import { movieRepository } from "../src/db/data-source";
+import { directorRepository, movieRepository } from "../src/db/data-source";
+import { AppDataSource } from "../src/db/data-source";
 
 describe("GET /movies", () => {
-  afterEach(() => {
-    jest.restoreAllMocks(); // Restore the original implementation after each test
-  });
+  beforeAll(async () => {
+    await AppDataSource.initialize();
 
-  it("should return 200 OK", async () => {
-    jest.spyOn(movieRepository, "find").mockResolvedValue([
+    const movies = [
       {
-        id: "1",
         title: "The Shawshank Redemption",
         year: 1994,
         runtime: 142,
         genres: "Drama",
-        director: "Frank Darabont",
+        director_id: "1",
         actors: "Tim Robbins, Morgan Freeman, Bob Gunton, William Sadler",
       },
       {
-        id: "2",
         title: "The Godfather",
         year: 1972,
         runtime: 175,
         genres: "Crime, Drama",
-        director: "Francis Ford Coppola",
+        director_id: "2",
         actors: "Marlon Brando, Al Pacino, James Caan, Richard S. Castellano",
       },
       {
-        id: "3",
         title: "The Dark Knight",
         year: 2008,
         runtime: 152,
         genres: "Action, Crime, Drama, Thriller",
-        director: "Christopher Nolan",
+        director_id: "3",
         actors: "Christian Bale, Heath Ledger, Aaron Eckhart, Michael Caine",
       },
-    ]);
+    ];
 
+    await movieRepository.save(movies);
+
+    const directors = [
+      {
+        name: "Frank Darabont",
+      },
+      {
+        name: "Francis Ford Coppola",
+      },
+      {
+        name: "Christopher Nolan",
+      },
+    ];
+
+    await directorRepository.save(directors);
+  });
+
+  afterAll(async () => {
+    await AppDataSource.dropDatabase();
+  });
+
+  it("should return 200 OK", async () => {
     const response = await request(app).get("/movies");
 
     expect(response.status).toBe(200);
@@ -62,6 +80,7 @@ describe("GET /movies/:id", () => {
     const response = await request(app).get("/movies/1");
 
     expect(response.status).toBe(200);
-    expect(response.body.data.id).toBe("1");
+    expect(response.body.data[0]).toHaveProperty("id", 1);
+    expect(response.body.data[0].director_name).toHaveProperty("name", "Frank Darabont");
   });
 });
