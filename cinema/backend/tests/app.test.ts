@@ -87,7 +87,7 @@ describe("GET /movies/:id", () => {
     const response = await request(app).get("/movies/1");
 
     expect(response.status).toBe(200);
-    expect(response.body.data.director_name).toHaveProperty(
+    expect(response.body.data.director).toHaveProperty(
       "name",
       "Frank Darabont"
     );
