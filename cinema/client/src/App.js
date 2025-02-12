@@ -4,7 +4,7 @@ function App() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch("https://ideal-meme-jpjrqrqpq69hj5vv-3000.app.github.dev/movies")
+    fetch("http://localhost:3000/movies")
       .then((res) => res.json())
       .then((data) => setMovies(data.data));
   }, []);
