@@ -3,6 +3,7 @@ import request from "supertest";
 import app from "../src/app";
 import { directorRepository, movieRepository } from "../src/db/data-source";
 import { AppDataSource } from "../src/db/data-source";
+import { Like } from 'typeorm';
 
 beforeAll(async () => {
   await AppDataSource.initialize();
@@ -65,6 +66,8 @@ describe("GET /movies", () => {
 
   describe("query with title", () => {
     it("should return 200 OK", async () => {
+      const spy = jest.spyOn(movieRepository, 'find');
+
       const response = await request(app)
         .get("/movies")
         .query({ title: "God" });
@@ -72,6 +75,16 @@ describe("GET /movies", () => {
       expect(response.status).toBe(200);
       expect(response.body.data).toHaveLength(1);
       expect(response.body.data[0]).toHaveProperty("title", "The Godfather");
+
+      expect(spy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            title: Like('%God%'),
+          }),
+        }),
+      );
+
+      spy.mockRestore(); // clean up
     });
   });
 });
