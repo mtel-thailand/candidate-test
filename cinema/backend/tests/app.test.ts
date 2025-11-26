@@ -150,3 +150,27 @@ describe("CASE#3 - GET /movies/:id", () => {
     )
   });
 });
+
+describe("CASE#4 - PUT /movies/:id", () => {
+  it("should return 200 OK", async () => {
+    const body = {
+      genres: "Action"
+    }
+    const response = await request(app).patch("/movies/1")
+                            .send(body)
+                            .set("Accept", "application/json");
+
+    expect(response.status).toBe(200);
+    expect(response.body.data).toStrictEqual(
+      {
+        id: 1,
+        title: "The Shawshank Redemption",
+        year: 1994,
+        runtime: 142,
+        genres: "Action",
+        director_id: "1",
+        actors: "Tim Robbins, Morgan Freeman, Bob Gunton, William Sadler",
+      },
+    )
+  });
+});
