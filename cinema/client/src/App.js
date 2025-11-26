@@ -10,6 +10,10 @@ function App() {
       .then((data) => setMovies(data.data));
   }, []);
 
+  const selectMovie = (movie) => () => {
+    onEdit(movie);
+  }
+
   const MovieList = () => {
     return (
       <ul>
@@ -22,10 +26,6 @@ function App() {
         ))}
       </ul>
     );
-  }
-  
-  const selectMovie = (movie) => () => {
-    onEdit(movie);
   }
 
   const onEdit = (data) => {
