@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import { movieRepository } from "./db/data-source";
-import { Like } from 'typeorm'
 
 const app = express();
 
