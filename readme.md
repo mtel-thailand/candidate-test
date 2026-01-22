@@ -28,9 +28,9 @@ Mock data is already provided. Your task is to make the failing tests pass (make
   ```
   yarn test
   ```
-  3. There are 3 test cases: 
+  3. There are 4 test cases: 
   - The first test already passes.
-  - Fix the last two failing tests.
+  - Fix the last three failing tests.
 
 ## Frontend Instructions
 
