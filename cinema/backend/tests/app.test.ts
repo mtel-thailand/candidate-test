@@ -151,7 +151,7 @@ describe("CASE#3 - GET /movies/:id", () => {
   });
 });
 
-describe("CASE#4 - PUT /movies/:id", () => {
+describe("CASE#4 - PATCH /movies/:id", () => {
   it("should return 200 OK", async () => {
     const body = {
       genres: "Action"
